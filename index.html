@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080808">
+<title>Abhi-Uyen | 20-Second Chunk Challenge · 20 Sentences</title>
+<style>
+:root{
+  --black:#080808;--ink:#1d1a16;--cream:#fff8eb;--cream-soft:#fbf1df;
+  --gold:#ffe500;--gold-deep:#e8c200;--dark-gold:#9c7500;--red:#c52228;
+  --text-muted:#6c6251;--rule:#e4d5b9;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%;margin:0}
+html{background:var(--black)}
+body{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#fff;background:var(--black);display:flex;justify-content:center;align-items:center;padding:28px 20px}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+button:disabled{opacity:.43;cursor:not-allowed}
+[hidden]{display:none!important}
+.app{width:min(1240px,100%);margin:auto}
+.mast{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:13px;font-size:13px;letter-spacing:.15em;font-weight:950}
+.logo{width:38px;height:38px;background:var(--gold);border-radius:10px;color:var(--black);display:grid;place-items:center;font-size:17px;letter-spacing:-.08em;box-shadow:0 0 17px #ffe50055}
+.mast-right{font-size:13px;font-weight:900;letter-spacing:.1em;color:#f7eec4}
+.neon{color:var(--gold)}
+.board{border:4px solid var(--gold);background:var(--cream);color:var(--ink);border-radius:22px;overflow:hidden;
+ box-shadow:0 0 0 2px #ffe50040,0 0 18px #ffe50070,0 0 62px #ffe50040,0 18px 50px #000}
+.board-top{display:flex;justify-content:space-between;align-items:start;gap:18px;padding:26px 30px 13px}
+.eyebrow{font-size:12px;font-weight:950;letter-spacing:.17em;color:#746346;text-transform:uppercase}
+.main-heading{margin:8px 0 8px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(24px,2.8vw,36px);line-height:1.08;letter-spacing:-.025em}
+.description{margin:0;color:#675b47;font-size:14px;line-height:1.55}
+.legend{display:flex;gap:16px;align-items:center;margin-top:18px;flex-wrap:wrap;color:#625a4e;font-size:12px;font-weight:850}
+.legend span{display:flex;gap:7px;align-items:center}
+.dot{width:9px;height:9px;background:#252019;border-radius:50%;display:inline-block}
+.dot.red{background:var(--red)}
+.clock-wrap{display:flex;gap:13px;align-items:center;flex:none}
+.clock{width:112px;height:112px;border-radius:50%;background:conic-gradient(var(--gold) var(--clock-pct,100%),#e7dcc7 0);display:grid;place-items:center;padding:8px;box-shadow:0 3px 13px #29190016;transition:box-shadow .16s}
+.clock-inner{width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;background:var(--cream);border-radius:50%}
+.clock-num{font-size:42px;font-variant-numeric:tabular-nums;letter-spacing:-.08em;font-weight:1000;line-height:1}
+.clock-sec{font-size:11px;letter-spacing:.1em;font-weight:900;color:#78654b}
+.clock.urgent{box-shadow:0 0 0 6px #df2f2120,0 0 22px #da270d55}
+.clock.urgent .clock-num{color:var(--red)}
+.timer-ctrls{display:grid;gap:8px;min-width:118px}
+.timer-ctrls button{padding:9px 12px;border:2px solid #1f1b14;border-radius:9px;font-size:13px;font-weight:900;background:#fff4da;color:#1e1b18;white-space:nowrap}
+.timer-ctrls #soundBtn{border-color:#d6c7a8;color:#59472e;background:transparent}
+.timer-ctrls #pauseBtn{background:var(--gold)}
+.prompt-area{padding:23px 34px 30px;text-align:center;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:23px}
+.prompt-label{font-weight:1000;letter-spacing:.21em;font-size:11px;color:#897452}
+.sentence-parts{display:flex;align-items:center;justify-content:center;gap:12px 14px;flex-wrap:wrap;line-height:1.2;max-width:1100px;}
+.part{font-weight:900;font-size:clamp(21px,2.45vw,35px);letter-spacing:-.035em;overflow-wrap:break-word}
+.slash{font-weight:350;font-size:clamp(22px,2vw,30px);color:#a99776}
+.prompt-explain{font-size:12px;font-weight:800;letter-spacing:.01em;color:#7c705d}
+.hint-btn{background:transparent;border:1.5px solid #bc9c61;border-radius:999px;color:#725128;font-size:12px;font-weight:850;padding:9px 14px}
+.hint-text{margin:12px auto 0;max-width:850px;color:#684b31;font-size:14px;line-height:1.55}
+.answer-panel{margin:0 29px 23px;padding:18px 22px 19px;border-radius:12px;background:#fff1cd;border:2px solid #dfc275;text-align:left}
+.answer-topline{text-transform:uppercase;letter-spacing:.15em;font-size:11px;font-weight:950;color:#825d19;margin-bottom:9px}
+.answer-sentence{font-size:clamp(19px,2.1vw,27px);line-height:1.52;font-weight:760;letter-spacing:-.01em;margin:0;overflow-wrap:anywhere}
+.answer-sentence .add{color:var(--red);font-weight:950}
+.answer-translation{font-size:14px;line-height:1.55;margin:10px 0 0;color:#76552c}
+.voice-card{margin-top:16px;padding:14px 16px;background:#fffbf2;border:1.5px solid #b99853;border-radius:11px;display:grid;gap:11px}
+.voice-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.voice-heading{font-size:12px;font-weight:950;text-transform:uppercase;letter-spacing:.09em;color:#48371f}
+.voice-state{font-size:12px;font-weight:750;color:#715b32}
+.voice-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.voice-btn{border:2px solid #34281a;border-radius:9px;background:var(--gold);color:#1c180f;font-size:13px;font-weight:900;padding:9px 14px}
+.voice-btn.stop{background:#f2e7d1}
+.voice-speed{font-size:12px;font-weight:850;color:#58452d;margin-left:auto}
+.voice-speed select{font:inherit;background:#fff8e8;color:#1c180f;border:1.5px solid #a98c4f;padding:7px;border-radius:6px;margin-left:6px}
+.voice-track{height:7px;border-radius:10px;background:#e8d9bd;overflow:hidden}
+.voice-fill{height:100%;width:0%;background:linear-gradient(90deg,#bd871d,var(--gold));transition:width .12s linear}
+@media(max-width:760px){.voice-card{padding:12px}.voice-speed{margin-left:0}.voice-top{align-items:flex-start}}
+
+.panel-bottom{background:#f1e7d5;border-top:2px solid #e2d3b6;padding:16px 27px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.status{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:950;letter-spacing:.07em;color:#584a34;text-transform:uppercase}
+.status-lamp{width:9px;height:9px;border-radius:50%;background:#977d52}
+.status.ready .status-lamp{background:#c52820;box-shadow:0 0 0 4px #c528201a}
+.status.shown .status-lamp{background:#292521}
+.controls{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:9px}
+.control{border:2px solid #2b261e;border-radius:10px;padding:11px 15px;background:transparent;color:var(--ink);font-size:13px;font-weight:950;white-space:nowrap}
+.control.primary{background:var(--gold);box-shadow:0 2px 0 #b69a00}
+.control.secondary{background:#fffbf3}
+.control:enabled:hover{filter:brightness(.94)}
+.below{display:flex;gap:15px;justify-content:space-between;align-items:flex-start;margin-top:19px;flex-wrap:wrap}
+.progress{display:flex;flex-wrap:wrap;gap:7px;max-width:910px}
+.number-btn{min-width:39px;height:36px;border:1px solid #685b31;border-radius:8px;background:#1d1b16;color:#d4c5a4;font-size:12px;font-weight:900}
+.number-btn.current{background:var(--gold);color:#16110c;border-color:var(--gold);box-shadow:0 0 12px #ffe50070}
+.number-btn.seen:not(.current){border-color:var(--gold);color:var(--gold)}
+.footer-right{color:#cfb98e;font-size:11px;line-height:1.7;text-align:right}
+.mobile-break{display:none}
+@media(max-width:760px){
+ body{padding:12px}
+ .mast{margin-bottom:13px}.brand{font-size:10px;letter-spacing:.08em}.logo{width:32px;height:32px;font-size:13px}.mast-right{font-size:11px}
+ .board{border-width:3px;border-radius:16px}
+ .board-top{padding:18px 16px 9px;flex-wrap:wrap}
+ .main-heading{font-size:25px}.description{font-size:12px}.legend{margin-top:10px}
+ .clock-wrap{width:100%;justify-content:flex-end;gap:15px;flex-direction:row-reverse}
+ .clock{width:90px;height:90px}.clock-num{font-size:33px}.timer-ctrls{grid-template-columns:1fr 1fr;flex:1;max-width:310px}
+ .timer-ctrls button{font-size:12px;padding:9px}
+ .prompt-area{padding:20px 15px 25px;min-height:230px;gap:15px}
+ .sentence-parts{gap:8px 9px}.part{font-size:clamp(20px,5.2vw,27px)}.slash{font-size:18px}
+ .answer-panel{margin:0 13px 15px;padding:14px}
+ .panel-bottom{padding:15px 13px}.controls{width:100%;display:grid;grid-template-columns:1fr 1fr}
+ .control{font-size:12px;padding:10px 6px}.control.primary{grid-column:1 / -1;grid-row:1}
+ .below{margin-top:14px}.footer-right{text-align:left}
+}
+@media(max-width:420px){.mast-right{letter-spacing:0}.eyebrow{font-size:10px}.prompt-explain{font-size:11px}.part{font-size:21px}.sentence-parts{gap:6px 8px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="app">
+ <div class="mast">
+  <div class="brand"><span class="logo" aria-hidden="true">AU</span><span>ABHI-UYEN <span class="neon">/</span> SPEAKING GAME</span></div>
+  <div class="mast-right">QUESTION <span id="questionNo">01</span> <span class="neon">/</span> 20</div>
+ </div>
+ <section class="board" aria-label="Build a complete sentence in twenty seconds">
+  <div class="board-top">
+   <div>
+    <div class="eyebrow">20-second speaking challenge</div>
+    <h1 class="main-heading">Build a Complete Sentence</h1>
+    <p class="description">Use the given chunks to speak the full sentence. Add the missing words yourself.</p>
+    <div class="legend"><span><i class="dot"></i> Given chunks only</span></div>
+   </div>
+   <div class="clock-wrap">
+    <div class="timer-ctrls">
+      <button id="pauseBtn" type="button" disabled>▶ Start 20s</button>
+      <button id="soundBtn" type="button" aria-pressed="true">🔔 Alerts ON</button>
+    </div>
+    <div class="clock" id="clock" style="--clock-pct:100%" role="timer" aria-label="20 seconds remaining">
+      <div class="clock-inner"><span class="clock-num" id="seconds">20</span><span class="clock-sec">SECONDS</span></div>
+    </div>
+   </div>
+  </div>
+  <div class="prompt-area">
+   <div class="prompt-label">SPEAK / RECONSTRUCT THE SENTENCE</div>
+   <div id="parts" class="sentence-parts" aria-live="polite"></div>
+   <div>
+    <div class="prompt-explain">Missing words are hidden until you select Show Full Answer.</div>
+    <div style="margin-top:12px"><button id="viBtn" class="hint-btn" type="button" aria-expanded="false">+ Vietnamese hint</button></div>
+    <p id="hint" class="hint-text" lang="vi" hidden></p>
+   </div>
+  </div>
+  <div class="answer-panel" id="answerPanel" hidden>
+   <div class="answer-topline">✓ Full Answer · Added words in red</div>
+   <p class="answer-sentence" id="answerText"></p>
+   <p class="answer-translation" id="answerVi" lang="vi"></p>
+   <div class="voice-card" id="voiceCard" aria-label="Audio of the current full answer">
+    <div class="voice-top">
+     <span class="voice-heading">🔊 Model Audio · Sentence <span id="voiceQuestion">01</span></span>
+     <span id="voiceStatus" class="voice-state" role="status" aria-live="polite">Ready to listen</span>
+    </div>
+    <div class="voice-actions">
+     <button type="button" id="voicePlay" class="voice-btn">▶ Listen again</button>
+     <button type="button" id="voiceStop" class="voice-btn stop">■ Stop</button>
+     <label class="voice-speed" for="voiceSpeed">Speed
+      <select id="voiceSpeed" aria-label="Audio playback speed">
+       <option value="0.85">0.85×</option>
+       <option value="1" selected>1×</option>
+       <option value="1.15">1.15×</option>
+      </select>
+     </label>
+    </div>
+    <div class="voice-track" aria-hidden="true"><div id="voiceFill" class="voice-fill"></div></div>
+    <audio id="voiceAudio" preload="auto" src="sentences.mp3"></audio>
+   </div>
+  </div>
+  <div class="panel-bottom">
+    <div id="status" class="status"><i class="status-lamp"></i><span id="statusText">Press Start to begin</span></div>
+    <div class="controls">
+     <button id="resetBtn" class="control secondary" type="button">↻ Restart</button>
+     <button id="prevBtn" class="control" type="button">← Previous</button>
+     <button id="showBtn" class="control primary" type="button" disabled>Show Full Answer</button>
+     <button id="nextBtn" class="control" type="button">Next →</button>
+    </div>
+  </div>
+ </section>
+ <div class="below">
+  <nav id="progress" class="progress" aria-label="Go to question"></nav>
+  <div class="footer-right"><div id="summary">0 / 20 answers revealed</div>Designed by Abhi-Uyen · British English</div>
+ </div>
+</main>
+<script>
+'use strict';
+const QUESTIONS=[
+ {
+  "answer": "Open communication helps build trust and mutual respect between parents and children.",
+  "vi": "Giao tiếp cởi mở giúp xây dựng sự tin tưởng và tôn trọng lẫn nhau giữa cha mẹ và con cái.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "Open communication",
+    "add": false
+   },
+   {
+    "text": "helps",
+    "add": true
+   },
+   {
+    "text": "build trust and mutual respect",
+    "add": false
+   },
+   {
+    "text": "between",
+    "add": true
+   },
+   {
+    "text": "parents and children",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "International organisations provide humanitarian assistance to vulnerable communities affected by natural disasters.",
+  "vi": "Các tổ chức quốc tế cung cấp hỗ trợ nhân đạo cho những cộng đồng dễ bị tổn thương do thiên tai.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "International organisations",
+    "add": false
+   },
+   {
+    "text": "provide humanitarian assistance",
+    "add": false
+   },
+   {
+    "text": "to",
+    "add": true
+   },
+   {
+    "text": "vulnerable communities",
+    "add": false
+   },
+   {
+    "text": "affected by natural disasters",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "Without adequate humanitarian assistance, vulnerable communities may struggle to recover from natural disasters.",
+  "vi": "Nếu không có đủ hỗ trợ nhân đạo, các cộng đồng dễ bị tổn thương có thể khó phục hồi sau thiên tai.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "Without adequate humanitarian assistance,",
+    "add": false
+   },
+   {
+    "text": "vulnerable communities",
+    "add": false
+   },
+   {
+    "text": "may struggle to",
+    "add": true
+   },
+   {
+    "text": "recover from natural disasters",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "A lack of parental involvement may negatively affect children's academic performance.",
+  "vi": "Sự thiếu tham gia của cha mẹ có thể ảnh hưởng tiêu cực đến kết quả học tập của trẻ.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "A lack of parental involvement",
+    "add": false
+   },
+   {
+    "text": "may",
+    "add": true
+   },
+   {
+    "text": "negatively affect",
+    "add": false
+   },
+   {
+    "text": "children's academic performance",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "Parental involvement plays a crucial role in children's emotional development.",
+  "vi": "Sự tham gia của cha mẹ đóng vai trò quan trọng trong sự phát triển cảm xúc của trẻ.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "Parental involvement",
+    "add": false
+   },
+   {
+    "text": "plays a crucial role",
+    "add": false
+   },
+   {
+    "text": "in",
+    "add": true
+   },
+   {
+    "text": "children's emotional development",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "Active parental involvement contributes to children's cognitive development.",
+  "vi": "Sự tham gia tích cực của cha mẹ góp phần vào sự phát triển nhận thức của trẻ.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "Active parental involvement",
+    "add": false
+   },
+   {
+    "text": "contributes",
+    "add": false
+   },
+   {
+    "text": "to",
+    "add": true
+   },
+   {
+    "text": "children's cognitive development",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "A lack of parental involvement may lead to behavioural problems in children.",
+  "vi": "Sự thiếu tham gia của cha mẹ có thể dẫn đến các vấn đề về hành vi ở trẻ.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "A lack of parental involvement",
+    "add": false
+   },
+   {
+    "text": "may",
+    "add": true
+   },
+   {
+    "text": "lead to behavioural problems",
+    "add": false
+   },
+   {
+    "text": "in",
+    "add": true
+   },
+   {
+    "text": "children",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "Both parental involvement and parental guidance are essential for children's overall development.",
+  "vi": "Cả sự tham gia và sự định hướng của cha mẹ đều cần thiết cho sự phát triển toàn diện của trẻ.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "Both parental involvement and parental guidance",
+    "add": false
+   },
+   {
+    "text": "are",
+    "add": true
+   },
+   {
+    "text": "essential for",
+    "add": false
+   },
+   {
+    "text": "children's overall development",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "She has become an inspirational figure thanks to her remarkable achievements.",
+  "vi": "Cô ấy đã trở thành một nhân vật truyền cảm hứng nhờ những thành tựu đáng kể của mình.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "She",
+    "add": false
+   },
+   {
+    "text": "has become",
+    "add": true
+   },
+   {
+    "text": "an inspirational figure",
+    "add": false
+   },
+   {
+    "text": "thanks to",
+    "add": true
+   },
+   {
+    "text": "her remarkable achievements",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "His unwavering determination has made him an inspirational figure for young people.",
+  "vi": "Sự quyết tâm không lay chuyển đã giúp ông trở thành một nhân vật truyền cảm hứng cho giới trẻ.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "His unwavering determination",
+    "add": false
+   },
+   {
+    "text": "has made him",
+    "add": true
+   },
+   {
+    "text": "an inspirational figure",
+    "add": false
+   },
+   {
+    "text": "for",
+    "add": true
+   },
+   {
+    "text": "young people",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "Despite her humble beginnings, she became an inspirational figure in education.",
+  "vi": "Mặc dù có xuất thân khiêm tốn, cô ấy đã trở thành một nhân vật truyền cảm hứng trong lĩnh vực giáo dục.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "Despite her humble beginnings,",
+    "add": false
+   },
+   {
+    "text": "she became",
+    "add": true
+   },
+   {
+    "text": "an inspirational figure",
+    "add": false
+   },
+   {
+    "text": "in",
+    "add": true
+   },
+   {
+    "text": "education",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "An inspirational figure can have a profound influence on future generations.",
+  "vi": "Một nhân vật truyền cảm hứng có thể có ảnh hưởng sâu sắc tới các thế hệ tương lai.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "An inspirational figure",
+    "add": false
+   },
+   {
+    "text": "can have",
+    "add": true
+   },
+   {
+    "text": "a profound influence",
+    "add": false
+   },
+   {
+    "text": "on",
+    "add": true
+   },
+   {
+    "text": "future generations",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "Many companies adopt cutting-edge technology to improve operational efficiency.",
+  "vi": "Nhiều công ty áp dụng công nghệ tiên tiến để nâng cao hiệu quả vận hành.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "Many companies",
+    "add": false
+   },
+   {
+    "text": "adopt cutting-edge technology",
+    "add": false
+   },
+   {
+    "text": "to",
+    "add": true
+   },
+   {
+    "text": "improve operational efficiency",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "Cutting-edge technology has contributed to numerous scientific breakthroughs.",
+  "vi": "Công nghệ tiên tiến đã góp phần tạo nên nhiều bước đột phá khoa học.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "Cutting-edge technology",
+    "add": false
+   },
+   {
+    "text": "has",
+    "add": true
+   },
+   {
+    "text": "contributed to",
+    "add": false
+   },
+   {
+    "text": "numerous scientific breakthroughs",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "Researchers use cutting-edge technology to develop innovative solutions to environmental problems.",
+  "vi": "Các nhà nghiên cứu sử dụng công nghệ tiên tiến để phát triển các giải pháp sáng tạo cho những vấn đề môi trường.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "Researchers",
+    "add": false
+   },
+   {
+    "text": "use cutting-edge technology",
+    "add": false
+   },
+   {
+    "text": "to",
+    "add": true
+   },
+   {
+    "text": "develop innovative solutions",
+    "add": false
+   },
+   {
+    "text": "to",
+    "add": true
+   },
+   {
+    "text": "environmental problems",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "Companies that invest in cutting-edge technology can gain a competitive advantage.",
+  "vi": "Những công ty đầu tư vào công nghệ tiên tiến có thể đạt được lợi thế cạnh tranh.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "Companies",
+    "add": false
+   },
+   {
+    "text": "that invest in",
+    "add": true
+   },
+   {
+    "text": "cutting-edge technology",
+    "add": false
+   },
+   {
+    "text": "can gain",
+    "add": true
+   },
+   {
+    "text": "a competitive advantage",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "Cutting-edge technology allows machines to perform repetitive tasks more efficiently.",
+  "vi": "Công nghệ tiên tiến cho phép máy móc thực hiện các công việc lặp lại hiệu quả hơn.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "Cutting-edge technology",
+    "add": false
+   },
+   {
+    "text": "allows machines",
+    "add": false
+   },
+   {
+    "text": "to",
+    "add": true
+   },
+   {
+    "text": "perform repetitive tasks",
+    "add": false
+   },
+   {
+    "text": "more efficiently",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "Rapid technological advancement has led to the development of cutting-edge technology.",
+  "vi": "Sự tiến bộ nhanh chóng về công nghệ đã dẫn đến sự phát triển của công nghệ tiên tiến.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "Rapid technological advancement",
+    "add": false
+   },
+   {
+    "text": "has led to",
+    "add": true
+   },
+   {
+    "text": "the development of",
+    "add": false
+   },
+   {
+    "text": "cutting-edge technology",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "Scientists use cutting-edge technology to monitor environmental degradation.",
+  "vi": "Các nhà khoa học sử dụng công nghệ tiên tiến để theo dõi sự suy thoái môi trường.",
+  "source": "source",
+  "parts": [
+   {
+    "text": "Scientists",
+    "add": false
+   },
+   {
+    "text": "use cutting-edge technology",
+    "add": false
+   },
+   {
+    "text": "to",
+    "add": true
+   },
+   {
+    "text": "monitor environmental degradation",
+    "add": false
+   }
+  ]
+ },
+ {
+  "answer": "Cutting-edge technology can support sustainable development.",
+  "vi": "Công nghệ tiên tiến có thể hỗ trợ phát triển bền vững.",
+  "source": "new",
+  "parts": [
+   {
+    "text": "Cutting-edge technology",
+    "add": false
+   },
+   {
+    "text": "can",
+    "add": true
+   },
+   {
+    "text": "support sustainable development",
+    "add": false
+   }
+  ]
+ }
+];
+const MS=20000;
+const get=id=>document.getElementById(id);
+const VOICE_CLIPS = [[0.207,5.29],[5.814,12.219],[12.652,18.506],[19.019,23.364],[23.693,27.588],[27.989,31.683],[32.109,35.927],[36.446,41.198],[41.674,45.848],[46.274,50.527],[50.974,55.28],[55.729,59.829],[60.382,64.487],[64.889,68.527],[68.915,73.907],[74.323,78.352],[78.653,82.672],[83.088,86.99],[87.43,91.309],[91.717,94.606]];
+const voiceAudio = document.getElementById('voiceAudio');
+let voiceRequest=0, voiceClip=-1;
+function voiceMessage(message){get('voiceStatus').textContent=message;}
+function stopVoice(resetBar=true){
+ voiceRequest++;
+ try{voiceAudio.pause();}catch(e){}
+ voiceClip=-1;
+ if(resetBar)get('voiceFill').style.width='0%';
+ voiceMessage('Ready to listen');
+}
+function updateVoiceProgress(){
+ if(voiceClip<0)return;
+ const bounds=VOICE_CLIPS[voiceClip];
+ const progress=Math.min(1,Math.max(0,(voiceAudio.currentTime-bounds[0])/(bounds[1]-bounds[0])));
+ get('voiceFill').style.width=(progress*100).toFixed(2)+'%';
+ if(voiceAudio.currentTime>=bounds[1]-0.055){
+  voiceAudio.pause();voiceClip=-1;voiceRequest++;
+  get('voiceFill').style.width='100%';voiceMessage('Playback complete');
+ }
+}
+function playCurrentVoice(){
+ if(get('answerPanel').hidden)return;
+ stopVoice();
+ const clipIndex=index, request=++voiceRequest;
+ voiceClip=clipIndex;
+ const [from,to]=VOICE_CLIPS[clipIndex];
+ voiceAudio.playbackRate=Number(get('voiceSpeed').value)||1;
+ voiceMessage('Loading audio…');
+ const playNow=()=>{
+  if(request!==voiceRequest||clipIndex!==index||get('answerPanel').hidden)return;
+  try{
+   voiceAudio.currentTime=from;
+   voiceMessage('Playing this sentence');
+   const playing=voiceAudio.play();
+   if(playing && typeof playing.catch==='function')playing.catch(()=>{
+    if(request===voiceRequest){voiceClip=-1;voiceMessage('Press Listen again to play');}
+   });
+  }catch(e){voiceClip=-1;voiceMessage('Unable to play audio');}
+ };
+ if(voiceAudio.readyState>=1)playNow();
+ else voiceAudio.addEventListener('loadedmetadata',playNow,{once:true});
+}
+voiceAudio.addEventListener('timeupdate',updateVoiceProgress);
+voiceAudio.addEventListener('ended',()=>{
+ if(voiceClip>=0){voiceClip=-1;voiceRequest++;get('voiceFill').style.width='100%';voiceMessage('Playback complete');}
+});
+voiceAudio.addEventListener('error',()=>voiceMessage('Audio unavailable — check sentences.mp3'));
+get('voicePlay').addEventListener('click',playCurrentVoice);
+get('voiceStop').addEventListener('click',()=>{stopVoice();voiceMessage('Stopped');});
+get('voiceSpeed').addEventListener('change',()=>{voiceAudio.playbackRate=Number(get('voiceSpeed').value)||1;});
+
+let index=0, remaining=MS, deadline=0, ticker=null, mode='ready', answerShown=false;
+let seen=new Set(), soundOn=true, audioContext=null, lastWarning=20, audioWarned=false;
+function pad(n){return String(n).padStart(2,'0');}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function ensureAudio(){
+ if(!soundOn)return;
+ try{if(!audioContext){const AC=window.AudioContext||window.webkitAudioContext;if(AC)audioContext=new AC();}
+   if(audioContext?.state==='suspended')audioContext.resume().catch(()=>{});
+ }catch(e){/* Sound is optional; app remains usable. */}
+}
+function tone(freq=760, dur=.09, when=0){
+ if(!soundOn || !audioContext || audioContext.state!=='running')return;
+ try{
+  const t=audioContext.currentTime+when;
+  const osc=audioContext.createOscillator(),amp=audioContext.createGain();
+  osc.type='sine';osc.frequency.setValueAtTime(freq,t);
+  amp.gain.setValueAtTime(.0001,t);
+  amp.gain.exponentialRampToValueAtTime(.18,t+.015);
+  amp.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  osc.connect(amp);amp.connect(audioContext.destination);
+  osc.start(t);osc.stop(t+dur+.01);
+ }catch(e){}
+}
+function alarm(){tone(850,.16);tone(650,.18,.19);tone(850,.22,.41);}
+function setStatus(text,cl=''){
+ get('status').className='status'+(cl?' '+cl:'');
+ get('statusText').textContent=text;
+}
+function renderClock(){
+ const s=Math.ceil(Math.max(0,remaining)/1000);
+ get('seconds').textContent=pad(s);
+ get('clock').style.setProperty('--clock-pct',Math.max(0,remaining)/MS*100+'%');
+ get('clock').classList.toggle('urgent',s<=5&&s>=0);
+ get('clock').setAttribute('aria-label',`${s} seconds remaining`);
+}
+function stopTick(){if(ticker!==null){clearInterval(ticker);ticker=null;}}
+function updatePauseButton(){
+ const b=get('pauseBtn');
+ b.disabled=mode==='done';
+ b.textContent=mode==='running'?'⏸ Pause':mode==='paused'?'▶ Resume':'▶ Start 20s';
+ b.setAttribute('aria-label',mode==='running'?'Pause countdown':mode==='paused'?'Resume countdown':'Start twenty-second countdown');
+}
+function onExpired(){
+ if(mode==='done')return;
+ stopTick();remaining=0;mode='done';renderClock();
+ get('showBtn').disabled=false;
+ updatePauseButton();setStatus("Time's up! Show the answer",'ready');
+ alarm();
+}
+function tick(){
+ if(mode!=='running')return;
+ remaining=Math.max(0,deadline-performance.now());
+ const secs=Math.ceil(remaining/1000);
+ if(secs<=5 && secs>=1 && secs!==lastWarning){tone(880,.10);}
+ lastWarning=secs;renderClock();
+ if(remaining<=0)onExpired();
+}
+function start(){
+ if(mode==='done')return;
+ ensureAudio();
+ if(mode==='ready'){remaining=MS;lastWarning=20;}
+ deadline=performance.now()+remaining;
+ mode='running';updatePauseButton();setStatus('Think and speak…');
+ stopTick();ticker=setInterval(tick,45);tick();
+}
+function pauseOrResume(){
+ if(mode==='running'){
+  remaining=Math.max(0,deadline-performance.now());stopTick();mode='paused';
+  updatePauseButton();renderClock();setStatus('Paused — press Resume');
+ }else if(mode==='paused'||mode==='ready')start();
+}
+function reset(autostart=false){
+ stopVoice();
+ stopTick();remaining=MS;mode='ready';answerShown=false;lastWarning=20;
+ get('showBtn').disabled=true;get('answerPanel').hidden=true;
+ renderClock();updatePauseButton();setStatus('Press Start to begin');
+ if(autostart)start();
+}
+function renderQuestion(n,autostart=false){
+ if(n<0||n>=QUESTIONS.length)return;
+ index=n;const q=QUESTIONS[n];
+ get('questionNo').textContent=pad(n+1);
+ const parent=get('parts');parent.replaceChildren();
+ // Only show the given chunks before the answer. Never reveal the added words early.
+ const givenParts=q.parts.filter(part=>!part.add);
+ givenParts.forEach((part,i)=>{
+  if(i){const slash=document.createElement('span');slash.className='slash';slash.textContent='/';slash.setAttribute('aria-hidden','true');parent.appendChild(slash);}
+  const chunk=document.createElement('span');chunk.className='part';chunk.textContent=part.text;parent.appendChild(chunk);
+ });
+ get('hint').textContent=q.vi;get('hint').hidden=true;
+ get('viBtn').textContent='+ Vietnamese hint';get('viBtn').setAttribute('aria-expanded','false');
+ // Render from the exact same segments as the original sentence.
+ get('answerText').innerHTML=q.parts.map(p=>`<span class="${p.add?'add':'given'}">${escapeHtml(p.text)}</span>`).join(' ')+'.';
+ get('answerVi').textContent=q.vi;
+ get('prevBtn').disabled=n===0;get('nextBtn').disabled=n===QUESTIONS.length-1;
+ reset(autostart);renderProgress();
+}
+function renderProgress(){
+ const wrap=get('progress');wrap.replaceChildren();
+ QUESTIONS.forEach((q,i)=>{
+  const b=document.createElement('button');b.type='button';b.className='number-btn'+(i===index?' current':'')+(seen.has(i)?' seen':'');
+  b.textContent=pad(i+1);b.title=`Question ${i+1}`;b.setAttribute('aria-label',`Go to question ${i+1}`);
+  if(i===index)b.setAttribute('aria-current','step');
+  b.addEventListener('click',()=>renderQuestion(i,true));wrap.appendChild(b);
+ });
+ get('summary').textContent=`${seen.size} / ${QUESTIONS.length} answers revealed`;
+}
+get('pauseBtn').addEventListener('click',pauseOrResume);
+get('soundBtn').addEventListener('click',()=>{
+ soundOn=!soundOn;
+ get('soundBtn').textContent=soundOn?'🔔 Alerts ON':'🔕 Alerts OFF';
+ get('soundBtn').setAttribute('aria-pressed',String(soundOn));
+ if(soundOn){ensureAudio();tone(840,.09);}
+});
+get('resetBtn').addEventListener('click',()=>reset(true));
+get('prevBtn').addEventListener('click',()=>renderQuestion(index-1,true));
+get('nextBtn').addEventListener('click',()=>renderQuestion(index+1,true));
+get('showBtn').addEventListener('click',()=>{
+ if(mode!=='done')return;
+ get('answerPanel').hidden=false;answerShown=true;seen.add(index);
+ get('voiceQuestion').textContent=pad(index+1);
+ setStatus('Model answer revealed','shown');renderProgress();
+ playCurrentVoice();
+});
+get('viBtn').addEventListener('click',()=>{
+ const shown=get('hint').hidden;
+ get('hint').hidden=!shown;
+ get('viBtn').textContent=shown?'− Hide Vietnamese hint':'+ Vietnamese hint';
+ get('viBtn').setAttribute('aria-expanded',String(shown));
+});
+document.addEventListener('keydown',e=>{
+ const tag=(e.target.tagName||'').toLowerCase();
+ if(['button','input','textarea','select'].includes(tag)||e.altKey||e.ctrlKey||e.metaKey)return;
+ const k=e.key.toLowerCase();
+ if(k==='arrowright'&&index<QUESTIONS.length-1){e.preventDefault();renderQuestion(index+1,true);}
+ else if(k==='arrowleft'&&index>0){e.preventDefault();renderQuestion(index-1,true);}
+ else if(k==='p'){e.preventDefault();pauseOrResume();}
+ else if(k==='r'){e.preventDefault();reset(true);}
+ else if(k==='s'&&mode==='done'){e.preventDefault();get('showBtn').click();}
+});
+// Pause on tab changes so no student loses speaking time in the background.
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(mode==='running')pauseOrResume();if(voiceClip>=0){voiceAudio.pause();voiceMessage('Paused (tab hidden)');}}});
+renderQuestion(0,false);
+</script>
+</body>
+</html>
